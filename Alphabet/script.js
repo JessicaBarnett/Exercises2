@@ -1,42 +1,24 @@
-// 1) Create an array of 10 integers, randomly chose by you, between 1 and 100 
-// 2) A function that accepts an array as an argument 
-// 3) Build an HTML table with two columns containing two columns: - column showing the number - column showing whether the number is 'odd' or 'even' 
-// 4) You'll have to loop through the array, use the modulus operator, if/else construct, build string 
+//This took me 10 minutes
 
+// 1) Loop through alphabet 
+// 2) Capitalize every other Letter
+// 3) Convert Alphabet to a string 
+// 4) Display alphabet w/ every other letter uppercase
 
-//create an array of 10 integers
-function createArray(){
-	var array = [];
-	for (var i = 0; i <= 10; i++){
-		array.push(Math.floor(Math.random() * 100));
-	}
-	return array;
-}
+(function capitalizeEveryOtherLetterInTheAlphabet(){
 
-function isOddOrEven(num){
-	return num % 2 === 1 ? "Odd" : "Even"; 
-}
+	var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
-function buildTable(array){
-	var element, parentElement;
-	array.forEach(function(number, index, array){
-		parentElement=document.createElement("tr");
-
-
-		element = document.createElement("td");
-		element.appendChild(document.createTextNode(number));
-		parentElement.appendChild(element);
-		
-		element = document.createElement("td");
-		element.appendChild(document.createTextNode(isOddOrEven(number)));
-		parentElement.appendChild(element);
-
-		document.getElementById("numberTable").appendChild(parentElement);
-
+	//convert every other letter to uppercase
+	alphabet.forEach(function(letter, index, array){
+		if (index % 2 === 0)
+			alphabet[index] = alphabet[index].toUpperCase();
 	});
-	
-}
 
-buildTable(createArray());
 
+	//convert array to a string and print it to the page
+	console.log(alphabet.join(", "));
+	document.getElementById("alphabet").appendChild(document.createTextNode(alphabet.join(", ")));
+
+})();
 
