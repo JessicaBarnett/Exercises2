@@ -1,41 +1,28 @@
-var myApp = angular.module("myApp", []);
+// 1) Loop through alphabet 
+// 2) Capitalize every other Letter
+// 3) Convert Alphabet to a string 
+// 4) Display alphabet w/ every other letter uppercase
 
+camelLetters = angular.module("camelLetters", []);
 
-myApp.factory('Numbers', function(){
-	var numbers  = {};
-	numbers.list = []; 
+camelLetters.factory("Alphabet", function(){
+	var alphabet = {}, allLetters = "abcdefghijklmnopqrstuvwxyz";
+	alphabet.letters = []; //vill contain array of objects with "letter" values
 
-	for (i=0; i<20; i++){
-		numbers.list.push({"value" : generateRandomNumber()});
-	}
+	allLetters = allLetters.split(""); //turns allLetters into an array
 
-	return numbers;
+	//adds a {"letter" : "letterGoesHere"} for each element in the array
+	allLetters.forEach(function(currentLetter, index, array){
+		if (index % 2 === 1)
+			alphabet.letters.push({"value" : currentLetter.toUpperCase()});
+		else
+			alphabet.letters.push({"value" : currentLetter});
+	});
+	console.log(alphabet);
+	return alphabet;
 });
 
-myApp.factory('Letters', function(){
-	var letters  = {};
-	letters.list = []; 
-
-	for (i=0; i<20; i++){
-		letters.list.push({"value" : generateRandomLetter()});
-	}
-
-	return letters;
-});
-
-
-function generateRandomLetter(){
-	var alphabet = "abcdefghijklmnopqrstuvwxyz";
-	return alphabet.charAt(Math.floor(Math.random() * 25));
-}
-
-function generateRandomNumber(){
-	return Math.floor(Math.random() * 100);
-}
-
-function FiltersCtrl($scope, Numbers, Letters){
-	$scope.numbers = Numbers;
-	$scope.letters = Letters;
-	console.log($scope.numbers.list);
-	// console.log($scope.letters.list);
+function camelCtrl ($scope, Alphabet){
+	$scope.alphabet = Alphabet;
+	console.dir($scope.alphabet);
 }

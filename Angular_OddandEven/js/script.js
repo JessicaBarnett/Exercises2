@@ -1,41 +1,36 @@
-var myApp = angular.module("myApp", []);
+// 1) Create an array of 10 integers, randomly chose by you, between 1 and 100 
+// 2) A function that accepts an array as an argument 
+// 3) Build an HTML table with two columns containing two columns: - column showing the number - column showing whether the number is 'odd' or 'even' 
+// 4) You'll have to loop through the array, use the modulus operator, if/else construct, build string 
+
+var oddEvenApp = angular.module("oddEvenApp", []);
 
 
-myApp.factory('Numbers', function(){
-	var numbers  = {};
-	numbers.list = []; 
+//create an object w/ an "array" property which contains 
+//an array of 10 objects with "value" properties, containing an integer
+//roundabout much? 
+oddEvenApp.factory('NumbersArray', function(){
+	var numbers = {}, number;
+	numbers.array = [];
 
-	for (i=0; i<20; i++){
-		numbers.list.push({"value" : generateRandomNumber()});
+	for (var i = 0; i < 10; i++){
+		number = {}
+		number.value = Math.floor(Math.random() * 100);
+		number.oddEven = isOddOrEven(number.value);
+		numbers.array.push(number);
 	}
 
 	return numbers;
 });
 
-myApp.factory('Letters', function(){
-	var letters  = {};
-	letters.list = []; 
-
-	for (i=0; i<20; i++){
-		letters.list.push({"value" : generateRandomLetter()});
-	}
-
-	return letters;
-});
-
-
-function generateRandomLetter(){
-	var alphabet = "abcdefghijklmnopqrstuvwxyz";
-	return alphabet.charAt(Math.floor(Math.random() * 25));
+//should I do something else with this one?
+function isOddOrEven(num){
+	console.log(num);
+	return num % 2 === 1 ? "Odd" : "Even"; 
 }
 
-function generateRandomNumber(){
-	return Math.floor(Math.random() * 100);
-}
+function TableCtrl($scope, NumbersArray){
+	$scope.numbers = NumbersArray;
+	console.dir($scope.numbers);
+};
 
-function FiltersCtrl($scope, Numbers, Letters){
-	$scope.numbers = Numbers;
-	$scope.letters = Letters;
-	console.log($scope.numbers.list);
-	// console.log($scope.letters.list);
-}
