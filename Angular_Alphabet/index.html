@@ -10,9 +10,10 @@
 		<a href="/index.html"><button class="home">home</button></a>
 
 		<div ng-controller="camelCtrl">
+				<p>Stringified, after all is said and done: </p>
+				<p ng-bind="alphabet.stringified"></p>
 			<table>
-				<!-- <p>{{alphabet.allLetters}}</p> -->
-				<tr ng-repeat="letter in alphabet.letters">
+					<tr ng-repeat="letter in alphabet.letters">
 					<td>{{letter.value}}</td>
 				</tr>
 			</table>

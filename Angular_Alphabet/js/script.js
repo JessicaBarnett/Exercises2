@@ -6,23 +6,54 @@
 camelLetters = angular.module("camelLetters", []);
 
 camelLetters.factory("Alphabet", function(){
-	var alphabet = {}, allLetters = "abcdefghijklmnopqrstuvwxyz";
+	var tempLetters = "abcdefghijklmnopqrstuvwxyz";
+	var alphabet = {};
 	alphabet.letters = []; //vill contain array of objects with "letter" values
 
-	allLetters = allLetters.split(""); //turns allLetters into an array
+	tempLetters = tempLetters.split(""); //turns tempLetters into an array
 
 	//adds a {"letter" : "letterGoesHere"} for each element in the array
-	allLetters.forEach(function(currentLetter, index, array){
+	tempLetters.forEach(function(currentLetter, index, array){
 		if (index % 2 === 1)
 			alphabet.letters.push({"value" : currentLetter.toUpperCase()});
 		else
 			alphabet.letters.push({"value" : currentLetter});
 	});
-	console.log(alphabet);
+
 	return alphabet;
 });
 
-function camelCtrl ($scope, Alphabet){
+camelLetters.factory("convertCamelLetters", function(){
+	return function(nested){
+		var arrayified = [];
+
+		nested.forEach(function(element, index, array){
+			console.dir(element.value);
+			arrayified.push(element.value);
+		});
+
+		return arrayified.join(" ");
+	}
+});
+
+
+
+function camelCtrl ($scope, Alphabet, convertCamelLetters){
 	$scope.alphabet = Alphabet;
-	console.dir($scope.alphabet);
+
+	//this step is kind of redundant...
+	$scope.alphabet.stringified = convertCamelLetters($scope.alphabet.letters);
+	console.log($scope.stringified);
 }
+
+//should this be a factory too?
+// function convertNestedObject(nested){
+// 	arrayified = [];
+
+// 	nested.forEach(function(element, index, array){
+// 		console.dir(element.value);
+// 		arrayified.push(element.value);
+// 	});
+
+// 	return arrayified.join(" ");
+// }
